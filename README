@@ -1,0 +1,26 @@
+MiniSat-ocaml
+=============
+
+MiniSat-ocaml is a set of OCaml bindings for the SAT solver MiniSat.  Instead
+of reimplementing MiniSat itself in OCaml, this library makes the MiniSat
+interface available through OCaml.
+
+The usage of the OCaml interface is pretty straightforward and mimics the C++
+interface.
+
+The package provides an example, solver.ml, that reads from standard input a
+formula and print its satisfiability and a satisfying assignment (if any). A
+formula is a sequence of lines that either define a variable ('v' <name>),
+define a clause ('c' followed by a sequence of names, with a leading '-' if
+they are negated in the clause) and comments (starting with '#'). A couple of
+example formulas are available in the 'examples/' directory.
+
+In order to compile the library, a copy of the source code of MiniSat is
+needed. The code should be located in 'MiniSat/src/'.
+
+For questions, comments, suggestion, or improvements please contact Flavio
+Lerda <flerda@gmail.com>.
+
+						  ---------------------
+						  (c) 2007 Flavio Lerda
+						  ---------------------
