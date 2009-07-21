@@ -35,13 +35,13 @@ let split (str: string) (ch: char): string list =
   split' str []
 
 (*
- * Processes the content of [file], adds the variables and clauses to MiniSAT
- * and returns a mapping between names and MiniSAT variables.
+ * Processes the content of [file], adds the variables and clauses to Minisat
+ * and returns a mapping between names and Minisat variables.
  *)
-let process_file (file: in_channel): (string, MiniSAT.var) Hashtbl.t =
+let process_file (file: in_channel): (string, Minisat.var) Hashtbl.t =
 
   (* Mapping between variable names and indices. *)
-  let vars : (string, MiniSAT.var) Hashtbl.t =
+  let vars : (string, Minisat.var) Hashtbl.t =
     Hashtbl.create 0
   in
 
@@ -51,7 +51,7 @@ let process_file (file: in_channel): (string, MiniSAT.var) Hashtbl.t =
     assert (l > 2);
     assert (line.[1] = ' ');
     let name = drop line 2 in
-    let v = MiniSAT.new_var () in
+    let v = Minisat.new_var () in
     Hashtbl.add vars name v
   in
 
@@ -75,13 +75,13 @@ let process_file (file: in_channel): (string, MiniSAT.var) Hashtbl.t =
           (fun (sign, name) ->
             let var = Hashtbl.find vars name in
             if sign then
-              MiniSAT.pos_lit var
+              Minisat.pos_lit var
             else
-              MiniSAT.neg_lit var
+              Minisat.neg_lit var
           )
           lits
     in
-    MiniSAT.add_clause clause
+    Minisat.add_clause clause
   in
 
   (* Read a new line and processes its content. *)
@@ -107,17 +107,17 @@ let process_file (file: in_channel): (string, MiniSAT.var) Hashtbl.t =
 
 (* Reads a given file and solves the instance. *)
 let solve (file: in_channel): unit =
-  MiniSAT.reset ();
+  Minisat.reset ();
   let vars = process_file file in
-  match MiniSAT.solve () with
-  | MiniSAT.UNSAT -> printf "unsat\n"
-  | MiniSAT.SAT   ->
+  match Minisat.solve () with
+  | Minisat.UNSAT -> printf "unsat\n"
+  | Minisat.SAT   ->
       printf "sat\n";
       Hashtbl.iter
         (fun name v ->
           printf "  %s=%s\n"
             name
-            (MiniSAT.string_of_value (MiniSAT.value_of v))
+            (Minisat.string_of_value (Minisat.value_of v))
         )
         vars
 

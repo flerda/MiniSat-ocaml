@@ -1,6 +1,6 @@
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
-#include "Solver.h"
+#include <minisat/Solver.h>
 
 Solver *solver = new Solver();
 
@@ -27,13 +27,13 @@ extern "C" value minisat_new_var(value unit) {
 extern "C" value minisat_pos_lit(value v) {
   Var var = Int_val(v);
   Lit lit(var, false);
-  return Val_int(index(lit));
+  return Val_int(toInt(lit));
 }
 
 extern "C" value minisat_neg_lit(value v) {
   Var var = Int_val(v);
   Lit lit(var, true);
-  return Val_int(index(lit));
+  return Val_int(toInt(lit));
 }
 
 extern "C" value minisat_add_clause(value c) {
@@ -44,8 +44,8 @@ extern "C" value minisat_add_clause(value c) {
   return Val_unit;
 }
 
-extern "C" value minisat_simplify_db(value unit) {
-  solver->simplifyDB();
+extern "C" value minisat_simplify(value unit) {
+  solver->simplify();
 
   return Val_unit;
 }

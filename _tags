@@ -1,0 +1,2 @@
+<solver.native> or <solver.byte>: c_use_minisat
+<libminisat_stubs.c>: g++

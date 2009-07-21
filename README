@@ -1,3 +1,4 @@
+
 MiniSat-ocaml
 =============
 
@@ -15,12 +16,9 @@ define a clause ('c' followed by a sequence of names, with a leading '-' if
 they are negated in the clause) and comments (starting with '#'). A couple of
 example formulas are available in the 'examples/' directory.
 
-In order to compile the library, a copy of the source code of MiniSat is
-needed. The code should be located in 'MiniSat/src/'.
-
 For questions, comments, suggestion, or improvements please contact Flavio
-Lerda <flerda@gmail.com>.
+Lerda <flerda@gmail.com> or Pietro Abate <pietro.abate@pps.jussieu.fr>
 
-						  ---------------------
-						  (c) 2007 Flavio Lerda
-						  ---------------------
+Copyright:
+     Flavio Lerda 2007 - 2009 (c)
+     Pietro Abate 2009 (c)
