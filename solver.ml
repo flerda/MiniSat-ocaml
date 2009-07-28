@@ -1,12 +1,15 @@
+
+
 (* To use printf without referencing the model name *)
 open Printf
+open Minisat
 
 (*
  * Returns the string obtained from [str] by dropping the first
  * [n] characters. [n] must be smaller than or equal to the length
  * of the string [str].
  *)
-let drop (str: string) (n: int): string =
+let drop str n =
   let l = String.length str in
   String.sub str n (l - n)
 
@@ -14,14 +17,13 @@ let drop (str: string) (n: int): string =
  * Returns the first [n] characters of the string [str] as a string.
  * [n] must be smaller than or equal to the length of the string [str].
  *)
-let take (str: string) (n: int): string =
-  String.sub str 0 n
+let take str n = String.sub str 0 n
 
 (*
  * Splits a string [str] whenever a character [ch] is encountered.
  * The returns value is a list of strings.
  *)
-let split (str: string) (ch: char): string list =
+let split str ch =
   let rec split' str l =
     try
       let i = String.index str ch in
@@ -38,25 +40,23 @@ let split (str: string) (ch: char): string list =
  * Processes the content of [file], adds the variables and clauses to Minisat
  * and returns a mapping between names and Minisat variables.
  *)
-let process_file (file: in_channel): (string, Minisat.var) Hashtbl.t =
+let process_file solver file =
 
   (* Mapping between variable names and indices. *)
-  let vars : (string, Minisat.var) Hashtbl.t =
-    Hashtbl.create 0
-  in
+  let vars = Hashtbl.create 0 in
 
   (* Processes a line containing a variable definition. *)
-  let process_var (line: string): unit =
+  let process_var line =
     let l = String.length line in
     assert (l > 2);
     assert (line.[1] = ' ');
     let name = drop line 2 in
-    let v = Minisat.new_var () in
+    let v = solver#new_var in
     Hashtbl.add vars name v
   in
 
   (* Processes a line containing a clause. *)
-  let process_clause (line: string): unit =
+  let process_clause line =
     let l = String.length line in
     assert (l > 2);
     assert (line.[1] = ' ');
@@ -81,11 +81,11 @@ let process_file (file: in_channel): (string, Minisat.var) Hashtbl.t =
           )
           lits
     in
-    Minisat.add_clause clause
+    solver#add_clause clause
   in
 
   (* Read a new line and processes its content. *)
-  let rec process_line (): unit =
+  let rec process_line () =
     try
       let line = input_line file in
       if line = "" then
@@ -106,10 +106,10 @@ let process_file (file: in_channel): (string, Minisat.var) Hashtbl.t =
   vars
 
 (* Reads a given file and solves the instance. *)
-let solve (file: in_channel): unit =
-  Minisat.reset ();
-  let vars = process_file file in
-  match Minisat.solve () with
+let solve file =
+  let solver = new solver in
+  let vars = process_file solver file in 
+  match solver#solve with
   | Minisat.UNSAT -> printf "unsat\n"
   | Minisat.SAT   ->
       printf "sat\n";
@@ -117,9 +117,10 @@ let solve (file: in_channel): unit =
         (fun name v ->
           printf "  %s=%s\n"
             name
-            (Minisat.string_of_value (Minisat.value_of v))
+            (Minisat.string_of_value (solver#value_of v)) 
         )
         vars
+;;
 
 (*
  * Solve the files given on the command line, or read one from standard

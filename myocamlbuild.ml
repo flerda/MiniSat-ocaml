@@ -70,7 +70,7 @@ let _ = dispatch begin function
 
        List.iter begin fun (lib,dir) ->
          flag ["ocaml"; "link"; "c_use_"^lib; "byte"]
-         (S[A"-custom"; A"-cclib"; A"-lstdc++"; A"-ccopt"; A("-L"^lib); A"-cclib"; A("-l"^lib)]);
+         (S[A"-custom"; (* A"-cclib"; A"-lstdc++"; *) A"-ccopt"; A("-L"^lib); A"-cclib"; A("-l"^lib)]);
 
          flag ["ocaml"; "link"; "c_use_"^lib; "native"]
          (S[A"-cclib"; A"-lstdc++"; A"-ccopt"; A("-L"^lib); A"-cclib"; A("-l"^lib)]);
