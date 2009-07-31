@@ -1,0 +1,5 @@
+@OCamlStdlibDir@/minisat/*.cmi
+@OCamlStdlibDir@/minisat/*.ml*
+@OCamlStdlibDir@/minisat/*.a
+OPT: @OCamlStdlibDir@/minisat/*.cmx
+OPT: @OCamlStdlibDir@/minisat/*.cmxa

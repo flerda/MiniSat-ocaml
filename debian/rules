@@ -1,0 +1,63 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/ocaml/ocamlvars.mk
+include /usr/share/ocaml/ocamlinit.mk
+
+#DESTDIR := $(CURDIR)/debian/tmp/$(OCAML_STDLIB_DIR)
+
+build: ocamlinit build-stamp
+build-stamp: 
+	dh_testdir
+	$(MAKE)
+ifneq ($(OCAML_OPT_ARCH),)
+	$(MAKE) opt
+endif
+	touch $@
+
+clean: ocamlinit-clean
+	dh_testdir
+	dh_testroot
+	$(MAKE) clean
+	rm -f ocamlinit-stamp build-stamp
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+#	dh_installdocs
+	dh_installchangelogs
+	dh_installexamples
+	dh_install --list-missing
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol -- -VF:OCamlABI="$(OCAML_ABI)"
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

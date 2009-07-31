@@ -1,0 +1,37 @@
+Source: ocaml-minisat
+Priority: optional
+Maintainer: Debian OCaml Maintainers <debian-ocaml-maint@lists.debian.org>
+Build-Depends:
+ debhelper (>= 7),
+ ocaml-nox (>= 3.11),
+ libminisat-dev,
+ ocaml-findlib (>> 1.2.4-2),
+ dh-ocaml (>= 0.2)
+Standards-Version: 3.8.2
+Section: ocaml
+Homepage: http://github.com/flerda/MiniSat-ocaml
+
+Package: libminisat-ocaml
+Architecture: any
+Depends: ocaml-base-nox-${F:OCamlABI}, ${shlibs:Depends}, libminisat
+Description: Ocaml bindings for Minisat
+ MiniSat is a minimalistic, open-source SAT solver, developed to help
+ researchers and developers alike to get started on SAT. Winning all the
+ industrial categories of the SAT 2005 competition, MiniSat is a good starting
+ point both for future research in SAT, and for applications using SAT.
+ .
+ This package provides the files necessary to run dynamically-linked
+ OCaml programs with Minisat.
+
+Package: libminisat-ocaml-dev
+Architecture: any
+Depends: ocaml-nox-${F:OCamlABI}, libminisat-dev, libminisat-ocaml (= ${binary:Version})
+Recommends: ocaml-findlib
+Description: Ocaml bindings for Minisat
+ MiniSat is a minimalistic, open-source SAT solver, developed to help
+ researchers and developers alike to get started on SAT. Winning all the
+ industrial categories of the SAT 2005 competition, MiniSat is a good starting
+ point both for future research in SAT, and for applications using SAT.
+ .
+ This package provides the files necessary to develop new applications that
+ use Minisat for OCaml.

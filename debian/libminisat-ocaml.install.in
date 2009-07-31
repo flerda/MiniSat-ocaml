@@ -1,0 +1,4 @@
+@OCamlStdlibDir@/minisat/dllminisat_stubs.so @OCamlDllDir@
+@OCamlStdlibDir@/minisat/minisat.cma
+@OCamlStdlibDir@/minisat/META
+#OPT: minisat.cmxs @OCamlStdlibDir@/minisat

@@ -1,0 +1,5 @@
+ocaml-minisat (0.3-1) UNRELEASED; urgency=low
+
+  * Initial release. (Closes: #XXXXXX)
+
+ -- Pietro Abate <pietro.abate@pps.jussieu.fr>  Tue, 21 Jul 2009 11:09:33 +0200
