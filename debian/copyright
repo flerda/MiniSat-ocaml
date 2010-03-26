@@ -1,13 +1,13 @@
 This package was debianized by Pietro Abate <pietro.abate@pps.jussieu.fr> on
 Sat Aug  1 10:50:23 CEST 2009
 
-It was downloaded from https://github.com/flerda/MiniSat-ocaml/tree
+It was downloaded from http://github.com/abate/MiniSat-ocaml/tree/minisat2
 
 Upstream Authors: Flavio Lerda <flerda@gmail.com>
                   Pietro Abate <pietro.abate@pps.jussieu.fr>
 
-Copyright (C) 2007 Flavio Lerda <flerda@gmail.com>
-Copyright (C) 2009 Pietro Abate <pietro.abate@pps.jussieu.fr>
+Copyright (C) 2007 - 2009 Flavio Lerda <flerda@gmail.com>
+Copyright (C) 2009 - 2010 Pietro Abate <pietro.abate@pps.jussieu.fr>
 
 License:
 
