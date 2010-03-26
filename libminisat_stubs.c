@@ -1,5 +1,5 @@
 
-#include <minisat/Solver.h>
+#include <minisat2/Solver.h>
 
 extern "C"
 {
